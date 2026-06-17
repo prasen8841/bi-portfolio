@@ -1374,3 +1374,126 @@ footer{
     }
 }
 
+/* ===== MOBILE FIX PACK ===== */
+@media (max-width:768px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    section,
+    .about,
+    .portfolio,
+    .skills,
+    .contact,
+    .experience,
+    .certifications,
+    .resume-section,
+    .cta-section{
+        padding:50px 20px !important;
+    }
+
+    /* Navbar */
+    .navbar{
+        padding:20px 16px !important;
+    }
+
+    .navbar ul{
+        gap:18px !important;
+        font-size:14px;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        scrollbar-width:none;
+    }
+
+    .logo{
+        font-size:28px !important;
+    }
+
+    /* Hero */
+    h1{
+        font-size:28px !important;
+    }
+
+    h2{
+        font-size:22px !important;
+    }
+
+    .description,
+    .about p,
+    .resume-section p,
+    .cta-box p{
+        font-size:16px !important;
+        line-height:1.6;
+    }
+
+    /* About section */
+    .about{
+        display:block !important;
+    }
+
+    .about-left,
+    .about-right{
+        width:100%;
+    }
+
+    .about-right{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:20px;
+        margin-top:30px;
+    }
+
+    .about-card h3{
+        font-size:48px !important;
+    }
+
+    /* Portfolio */
+    .portfolio-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    .project-card img{
+        height:auto;
+    }
+
+    /* Skills */
+    .skills-category-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    /* Cert */
+    .cert-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    /* Contact */
+    .contact-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    /* CTA / Recruiter */
+    .cta-box{
+        padding:30px 18px !important;
+    }
+
+    .cta-points{
+        font-size:16px !important;
+    }
+
+    /* Buttons */
+    button,
+    .primary,
+    .secondary{
+        width:100%;
+        margin:10px 0;
+    }
+
+    /* Chat avatar */
+    .chatbot-container{
+        right:12px !important;
+        bottom:12px !important;
+        transform:scale(0.8);
+        transform-origin:bottom right;
+    }
+}

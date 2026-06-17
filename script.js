@@ -373,3 +373,9 @@ menuToggle.addEventListener("click", () => {
     navMenu.classList.toggle("show-menu");
 });
 
+document.querySelectorAll("#navMenu a").forEach(link => {
+    link.addEventListener("click", () => {
+        navMenu.classList.remove("show-menu");
+    });
+});
+

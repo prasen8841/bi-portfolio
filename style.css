@@ -10,7 +10,7 @@ html{
 
 /* Fix sticky navbar cutting section titles */
 section{
-    scroll-margin-top:100px;
+    scroll-margin-top:120px;
 }
 
 body{
@@ -1403,6 +1403,8 @@ footer{
         position:sticky !important;
         top:0;
         z-index:10000;
+        background:rgba(8,11,18,0.95);
+        backdrop-filter:blur(12px);
     }
 
     .logo{
@@ -1412,13 +1414,17 @@ footer{
     }
 
     .menu-toggle{
+        display:none;
+    }
+
+    .menu-toggle{
         display:block !important;
         font-size:32px;
         color:#00E5FF;
         cursor:pointer;
     }
 
-    .navbar ul{
+        .navbar ul{
         display:flex;
         position:absolute;
         top:100%;

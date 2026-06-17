@@ -1295,9 +1295,8 @@ footer{
 
 .about{
     display:block;
-    width:min(1200px, 100%);
+    max-width:1200px;
     padding:100px 80px;
-    margin-left:80px;   /* keeps it left aligned */
 }
 
 .about-left{
@@ -1484,14 +1483,27 @@ footer{
         line-height:1.6;
     }
 
-    /* About section */
+/* About section */
     .about{
         display:block !important;
-    }
+        width:100% !important;
+        max-width:100% !important;
+        margin:0 !important;
+        padding:50px 20px !important;
+    }   
 
     .about-left,
+    .about-right,
+    .about-wrapper,
+    .about-text{
+        width:100% !important;
+        max-width:100% !important;
+        margin:0 !important;
+        padding:0 !important;
+    }
+
     .about-right{
-        width:100%;
+        display:none !important;
     }
 
     .about-right{

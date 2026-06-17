@@ -1394,16 +1394,37 @@ footer{
     }
 
     /* Navbar */
+   /* Navbar Mobile Fix */
     .navbar{
-        padding:20px 16px !important;
+        padding:14px 10px !important;
+        display:block !important;
+    }
+
+    .logo{
+        font-size:22px !important;
+        text-align:center;
+        margin-bottom:12px;
     }
 
     .navbar ul{
-        gap:18px !important;
-        font-size:14px;
-        flex-wrap:nowrap;
+        display:flex !important;
+        flex-wrap:nowrap !important;
+        gap:14px !important;
         overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        padding-bottom:6px;
         scrollbar-width:none;
+        -ms-overflow-style:none;
+    }
+
+    .navbar ul::-webkit-scrollbar{
+        display:none;
+    }
+
+    .navbar a{
+        font-size:12px !important;
+        display:inline-block;
     }
 
     .logo{

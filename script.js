@@ -368,13 +368,16 @@ window.addEventListener("load", updateActiveNav);
 // Hamburger Menu Toggle
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
+const navLinksMobile = document.querySelectorAll("#navMenu a");
 
-menuToggle.addEventListener("click", () => {
+// Open / close menu
+menuToggle.addEventListener("click", function () {
     navMenu.classList.toggle("show-menu");
 });
 
-document.querySelectorAll("#navMenu a").forEach(link => {
-    link.addEventListener("click", () => {
+// Close when link clicked
+navLinksMobile.forEach(link => {
+    link.addEventListener("click", function () {
         navMenu.classList.remove("show-menu");
     });
 });

@@ -1400,17 +1400,15 @@ footer{
         display:flex !important;
         justify-content:space-between !important;
         align-items:center !important;
-        position:relative;
+        position:sticky !important;
+        top:0;
+        z-index:10000;
     }
 
     .logo{
         font-size:24px !important;
         margin:0 !important;
         text-align:left !important;
-    }
-
-    .menu-toggle{
-        display:none;
     }
 
     .menu-toggle{
@@ -1421,21 +1419,32 @@ footer{
     }
 
     .navbar ul{
-        display:none !important;
+        display:flex;
         position:absolute;
-        top:70px;
+        top:100%;
         left:0;
         width:100%;
-        background:#080B12;
+        background:rgba(8,11,18,0.98);
+        backdrop-filter:blur(18px);
         flex-direction:column;
-        padding:20px 0;
-        gap:20px !important;
+        padding:25px 0;
+        gap:24px !important;
         text-align:center;
         border-top:1px solid rgba(0,229,255,0.2);
+        box-shadow:0 15px 35px rgba(0,0,0,0.45);
+        z-index:9999;
+
+        /* animation */
+        opacity:0;
+        transform:translateY(-15px);
+        transition:all 0.3s ease;
+        pointer-events:none;
     }
 
     .navbar ul.show-menu{
-        display:flex !important;
+        opacity:1;
+        transform:translateY(0);
+        pointer-events:auto;
     }
 
     .navbar a{

@@ -1433,21 +1433,24 @@ footer{
         background:rgba(8,11,18,0.98);
         backdrop-filter:blur(18px);
         flex-direction:column;
-        padding:25px 0;
         gap:24px !important;
         text-align:center;
         border-top:1px solid rgba(0,229,255,0.2);
         box-shadow:0 15px 35px rgba(0,0,0,0.45);
         z-index:9999;
+        overflow:hidden;
 
-        /* animation */
+        max-height:0;
+        padding:0;
         opacity:0;
         transform:translateY(-15px);
-        transition:all 0.3s ease;
+        transition:all 0.35s ease;
         pointer-events:none;
     }
 
     .navbar ul.show-menu{
+        max-height:500px;
+        padding:25px 0;
         opacity:1;
         transform:translateY(0);
         pointer-events:auto;

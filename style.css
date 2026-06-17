@@ -1393,42 +1393,53 @@ footer{
         padding:50px 20px !important;
     }
 
-    /* Navbar */
-   /* Navbar Mobile Fix */
+/* Navbar */
+  /* Mobile Hamburger Navbar */
     .navbar{
-        padding:14px 10px !important;
-        display:block !important;
+        padding:16px 20px !important;
+        display:flex !important;
+        justify-content:space-between !important;
+        align-items:center !important;
+        position:relative;
     }
 
     .logo{
-        font-size:22px !important;
-        text-align:center;
-        margin-bottom:12px;
+        font-size:24px !important;
+        margin:0 !important;
+        text-align:left !important;
     }
 
-    .navbar ul{
-        display:flex !important;
-        flex-wrap:nowrap !important;
-        gap:14px !important;
-        overflow-x:auto;
-        overflow-y:hidden;
-        white-space:nowrap;
-        padding-bottom:6px;
-        scrollbar-width:none;
-        -ms-overflow-style:none;
-    }
-
-    .navbar ul::-webkit-scrollbar{
+    .menu-toggle{
         display:none;
     }
 
-    .navbar a{
-        font-size:12px !important;
-        display:inline-block;
+    .menu-toggle{
+        display:block !important;
+        font-size:32px;
+        color:#00E5FF;
+        cursor:pointer;
     }
 
-    .logo{
-        font-size:28px !important;
+    .navbar ul{
+        display:none !important;
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:#080B12;
+        flex-direction:column;
+        padding:20px 0;
+        gap:20px !important;
+        text-align:center;
+        border-top:1px solid rgba(0,229,255,0.2);
+    }
+
+    .navbar ul.show-menu{
+        display:flex !important;
+    }
+
+    .navbar a{
+        font-size:16px !important;
     }
 
     /* Hero */

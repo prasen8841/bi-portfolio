@@ -1496,4 +1496,39 @@ footer{
         transform:scale(0.8);
         transform-origin:bottom right;
     }
+
+    /* About Mobile Fix */
+    .about h2{
+        font-size:38px !important;
+    }
+
+    .about-subtitle{
+        font-size:18px !important;
+    }
+
+    .about p{
+        font-size:16px !important;
+        line-height:1.7 !important;
+    }
+
+    /* Resume + CTA Mobile Fix */
+    .resume-section p,
+    .cta-box p{
+        max-width:100% !important;
+        width:100% !important;
+        font-size:16px !important;
+        line-height:1.7 !important;
+    }
+
+    .cta-box{
+        padding:28px 18px !important;
+        width:100% !important;
+    }
+
+    .cta-points{
+        font-size:16px !important;
+        gap:14px !important;
+    }
 }
+
+

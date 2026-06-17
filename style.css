@@ -777,7 +777,10 @@ footer{
     }
 
     .hero{
-        display:block;
+        display:flex !important;
+        flex-direction:column-reverse;
+        align-items:center;
+        gap:30px;
         padding:20px 20px 40px;
     }
 
@@ -789,7 +792,18 @@ footer{
 
     .hero-right{
         position:relative;
-        top:-20px;
+        top:0 !important;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .hero-right img{
+        width:260px !important;
+        height:260px !important;
+        max-width:80vw;
+        object-fit:cover;
+        border-radius:36px !important;
     }
 
     h1{

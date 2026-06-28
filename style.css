@@ -130,6 +130,7 @@ button{
 .section-head,
 .timeline-item,
 .project-card,
+.automation-card,
 .metric-card,
 .skill-category-card,
 .cert-card,
@@ -144,6 +145,7 @@ button{
 .section-head.in-view,
 .timeline-item.in-view,
 .project-card.in-view,
+.automation-card.in-view,
 .metric-card.in-view,
 .skill-category-card.in-view,
 .cert-card.in-view,
@@ -155,7 +157,7 @@ button{
 }
 
 @media (prefers-reduced-motion: reduce){
-    .section-head,.timeline-item,.project-card,.metric-card,
+    .section-head,.timeline-item,.project-card,.automation-card,.metric-card,
     .skill-category-card,.cert-card,.contact-card,.about-text,.skills-layout{
         opacity:1;transform:none;
     }
@@ -902,6 +904,124 @@ section.contact{
     border:1px solid var(--border-soft);
 }
 
+/* ===================== AUTOMATION TOOLKIT ===================== */
+.automation{
+    padding:90px 60px;
+    max-width:1320px;
+    margin:0 auto;
+}
+
+.automation-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+}
+
+.automation-card{
+    background:var(--bg-elevated);
+    border:1px solid var(--border-soft);
+    border-radius:22px;
+    padding:28px;
+    cursor:pointer;
+    transition:transform .3s var(--ease), border-color .3s ease, box-shadow .3s ease;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+}
+
+.automation-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(0,217,255,0.06), transparent 60%);
+    opacity:0;
+    transition:opacity .3s ease;
+}
+
+.automation-card:hover{
+    transform:translateY(-7px);
+    border-color:var(--border-accent);
+    box-shadow:0 20px 45px rgba(0,217,255,0.12);
+}
+
+.automation-card:hover::before{opacity:1;}
+
+.automation-card-featured{
+    border-color:rgba(124,58,237,0.3);
+    background:linear-gradient(160deg, var(--bg-elevated) 60%, rgba(124,58,237,0.08));
+}
+
+.automation-card-featured:hover{
+    border-color:rgba(124,58,237,0.5);
+    box-shadow:0 20px 45px rgba(124,58,237,0.15);
+}
+
+.automation-card-top{
+    display:flex;
+    gap:8px;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+}
+
+.automation-lang{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    font-weight:700;
+    padding:5px 11px;
+    border-radius:99px;
+    letter-spacing:0.03em;
+}
+
+.lang-vba{
+    background:rgba(124,58,237,0.12);
+    color:#A78BFA;
+    border:1px solid rgba(124,58,237,0.3);
+}
+
+.lang-python{
+    background:rgba(0,217,255,0.12);
+    color:var(--blue);
+    border:1px solid var(--border-accent);
+}
+
+.automation-tag{
+    font-size:11.5px;
+    color:var(--text-dim);
+    padding:5px 11px;
+    border-radius:99px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border-soft);
+}
+
+.automation-card h3{
+    font-size:18.5px;
+    margin-bottom:10px;
+    position:relative;
+    z-index:1;
+}
+
+.automation-card p{
+    color:var(--text-muted);
+    font-size:14px;
+    line-height:1.65;
+    flex:1;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+}
+
+.automation-meta{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--blue);
+    position:relative;
+    z-index:1;
+}
+
+.automation-card-featured .automation-meta{color:#A78BFA;}
+
 /* ===================== SKILLS ===================== */
 .skills-layout{
     display:grid;
@@ -1519,6 +1639,7 @@ footer{
     .hero-buttons{justify-content:center;}
     .metrics{grid-template-columns:repeat(2,1fr);}
     .portfolio-grid{grid-template-columns:repeat(2,1fr);}
+    .automation-grid{grid-template-columns:repeat(2,1fr);}
     .skills-layout{grid-template-columns:1fr;}
     .skills-category-grid{grid-template-columns:1fr 1fr;}
     .cert-grid{grid-template-columns:1fr 1fr;}
@@ -1581,6 +1702,8 @@ footer{
     .timeline-item::before{left:-30px;}
 
     .portfolio-grid{grid-template-columns:1fr;}
+    .automation-grid{grid-template-columns:1fr;}
+    .automation{padding:60px 20px;}
     .skills-category-grid{grid-template-columns:1fr;}
     .cert-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}

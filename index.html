@@ -65,6 +65,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#automation">Automation</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#certifications">Certifications</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -348,10 +349,71 @@
     </div>
 </section>
 
+<!-- Automation Toolkit -->
+<section class="automation" id="automation">
+    <div class="section-head">
+        <span class="section-eyebrow">04 — Automation</span>
+        <h2>Automation toolkit.</h2>
+        <p class="section-subtitle">Reusable VBA macros and Python tools built to remove repetitive manual work from reporting workflows.</p>
+    </div>
+
+    <div class="automation-grid">
+
+        <div class="automation-card" onclick="openAutoModal('splitColumn')">
+            <div class="automation-card-top">
+                <span class="automation-lang lang-vba">VBA</span>
+                <span class="automation-tag">Excel Macro</span>
+            </div>
+            <h3>Dynamic Table Splitter</h3>
+            <p>Splits any table into separate sheets or files based on a selected column header — no hardcoded ranges.</p>
+            <div class="automation-meta">
+                <span>⚙ Reusable across projects</span>
+            </div>
+        </div>
+
+        <div class="automation-card" onclick="openAutoModal('splitWorkbook')">
+            <div class="automation-card-top">
+                <span class="automation-lang lang-vba">VBA</span>
+                <span class="automation-tag">Excel Macro</span>
+            </div>
+            <h3>Workbook Splitter</h3>
+            <p>Breaks a single multi-sheet workbook into separate standalone workbook files — one per sheet, automatically.</p>
+            <div class="automation-meta">
+                <span>⚙ Reusable across projects</span>
+            </div>
+        </div>
+
+        <div class="automation-card" onclick="openAutoModal('mergeWorkbooks')">
+            <div class="automation-card-top">
+                <span class="automation-lang lang-vba">VBA</span>
+                <span class="automation-tag">Excel Macro</span>
+            </div>
+            <h3>Workbook Merger</h3>
+            <p>Scans a folder and consolidates every workbook inside it into a single combined workbook.</p>
+            <div class="automation-meta">
+                <span>⚙ Reusable across projects</span>
+            </div>
+        </div>
+
+        <div class="automation-card automation-card-featured" onclick="openAutoModal('nlSql')">
+            <div class="automation-card-top">
+                <span class="automation-lang lang-python">Python</span>
+                <span class="automation-tag">AI / OpenAI API</span>
+            </div>
+            <h3>Natural Language → SQL Query Solver</h3>
+            <p>Converts plain-English questions into SQL using the OpenAI API, executes the query against a live database, and returns the results.</p>
+            <div class="automation-meta">
+                <span>⚡ Generates &amp; executes live queries</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <!-- Skills -->
 <section class="skills" id="skills">
     <div class="section-head">
-        <span class="section-eyebrow">04 — Skills</span>
+        <span class="section-eyebrow">05 — Skills</span>
         <h2>Capability matrix.</h2>
         <p class="section-subtitle">Core technologies I use to build scalable analytics and business intelligence solutions.</p>
     </div>
@@ -417,7 +479,7 @@
 <!-- Certifications -->
 <section class="certifications" id="certifications">
     <div class="section-head">
-        <span class="section-eyebrow">05 — Certifications</span>
+        <span class="section-eyebrow">06 — Certifications</span>
         <h2>Continuous learning.</h2>
         <p class="section-subtitle">Staying ahead in analytics, AI, and business intelligence.</p>
     </div>
@@ -445,7 +507,7 @@
 <!-- Resume -->
 <section class="resume-section" id="resume">
     <div class="resume-box">
-        <span class="section-eyebrow">06 — Resume</span>
+        <span class="section-eyebrow">07 — Resume</span>
         <h2>Recruiter resources.</h2>
         <p>Need a detailed overview of my projects, business impact, technical stack, and professional achievements? Access my resume instantly or connect with me for opportunities.</p>
 
@@ -478,7 +540,7 @@
 <!-- Contact -->
 <section class="contact" id="contact">
     <div class="section-head">
-        <span class="section-eyebrow">07 — Contact</span>
+        <span class="section-eyebrow">08 — Contact</span>
         <h2>Let's connect.</h2>
     </div>
 
@@ -616,6 +678,44 @@
             <div class="case-section">
                 <h3>🚀 Business Impact</h3>
                 <p id="modalImpact"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Automation Tool Modal -->
+<div id="autoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeAutoModal()">&times;</span>
+
+        <div class="modal-chips">
+            <span id="autoChipLang" class="chip"></span>
+            <span id="autoChipTag" class="chip"></span>
+        </div>
+
+        <h2 id="autoModalTitle"></h2>
+
+        <div class="case-section">
+            <h3>📊 Overview</h3>
+            <p id="autoModalOverview"></p>
+        </div>
+
+        <div class="modal-grid">
+            <div class="case-section">
+                <h3>⚠ Problem It Solves</h3>
+                <p id="autoModalProblem"></p>
+            </div>
+            <div class="case-section">
+                <h3>⚙ How It Works</h3>
+                <p id="autoModalHow"></p>
+            </div>
+            <div class="case-section">
+                <h3>🧰 Stack</h3>
+                <p id="autoModalStack"></p>
+            </div>
+            <div class="case-section">
+                <h3>🚀 Impact</h3>
+                <p id="autoModalImpact"></p>
             </div>
         </div>
     </div>

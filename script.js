@@ -7,7 +7,7 @@ window.scrollTo(0, 0);
 
 /* ===================== SCROLL REVEAL ===================== */
 const revealTargets = document.querySelectorAll(
-    ".section-head, .timeline-item, .project-card, .metric-card, .skill-category-card, .cert-card, .contact-card, .about-text, .skills-layout"
+    ".section-head, .timeline-item, .project-card, .automation-card, .metric-card, .skill-category-card, .cert-card, .contact-card, .about-text, .skills-layout"
 );
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -494,6 +494,71 @@ function closeModal() {
     document.getElementById("projectModal").style.display = "none";
 }
 
+/* Automation Tool Modal */
+const automationData = {
+    splitColumn: {
+        title: "Dynamic Table Splitter",
+        lang: "VBA",
+        tag: "Excel Macro",
+        overview: "An Excel macro that splits any table into separate sheets or files based on values in a column the user selects — the column isn't fixed in the code, so the same macro works on completely different report layouts.",
+        problem: "Manually filtering and copying rows for each category (region, department, vendor, etc.) into separate sheets was repetitive and error-prone, especially when the column to split by changed from report to report.",
+        how: "The user selects any header cell in the table. The macro reads that column, identifies its unique values, and automatically creates one sheet per value, copying the matching rows across with formatting intact.",
+        stack: "VBA, Excel Object Model",
+        impact: "Removed a manual, repetitive sorting/copying step from recurring reports — now reused across multiple projects without modification."
+    },
+    splitWorkbook: {
+        title: "Workbook Splitter",
+        lang: "VBA",
+        tag: "Excel Macro",
+        overview: "A macro that takes a single multi-sheet workbook and breaks it into separate standalone workbook files, one per sheet.",
+        problem: "Some recipients only need one sheet from a larger workbook, but manually copying each sheet into a new file and saving it was slow and easy to get wrong when there were many sheets.",
+        how: "Loops through every sheet in the active workbook, copies each into a new workbook, and saves it as its own file using the sheet name — fully automated, no manual copy-paste.",
+        stack: "VBA, Excel Object Model, FileSystem",
+        impact: "Turned a multi-minute manual export task into a single click, regardless of how many sheets the source workbook has."
+    },
+    mergeWorkbooks: {
+        title: "Workbook Merger",
+        lang: "VBA",
+        tag: "Excel Macro",
+        overview: "A macro that scans a chosen folder and consolidates every workbook inside it into one combined workbook.",
+        problem: "Reports submitted by multiple people or branches as separate Excel files needed to be combined for consolidated review — doing this by hand meant opening, copying, and pasting each file in turn.",
+        how: "Points at a folder path, loops through every workbook file inside it, and copies each one's data into a single destination workbook — either as separate sheets or appended into one combined sheet.",
+        stack: "VBA, Excel Object Model, FileSystem",
+        impact: "Reduced a recurring multi-file consolidation task to a single run, regardless of how many files are in the folder."
+    },
+    nlSql: {
+        title: "Natural Language → SQL Query Solver",
+        lang: "Python",
+        tag: "AI / OpenAI API",
+        overview: "A Python tool that takes a plain-English question, uses the OpenAI API to translate it into a SQL query, executes that query against a live database, and returns the results — without the user needing to write SQL.",
+        problem: "Stakeholders who need quick data answers often don't know SQL, which means every ad-hoc question becomes a request queued up for someone who does.",
+        how: "The user's question and the relevant database schema are sent to the OpenAI API, which generates the SQL query. The tool then runs that query directly against the database and returns the live result set back to the user.",
+        stack: "Python, OpenAI API, SQL (live execution)",
+        impact: "Lets non-technical stakeholders get direct answers from the database in plain English, without waiting on a manual query request."
+    }
+};
+
+function openAutoModal(toolKey) {
+    const modal = document.getElementById("autoModal");
+    const d = automationData[toolKey];
+    if (!d || !modal) return;
+
+    document.getElementById("autoModalTitle").innerText = d.title;
+    document.getElementById("autoChipLang").innerText = d.lang;
+    document.getElementById("autoChipTag").innerText = d.tag;
+    document.getElementById("autoModalOverview").innerText = d.overview;
+    document.getElementById("autoModalProblem").innerText = d.problem;
+    document.getElementById("autoModalHow").innerText = d.how;
+    document.getElementById("autoModalStack").innerText = d.stack;
+    document.getElementById("autoModalImpact").innerText = d.impact;
+
+    modal.style.display = "block";
+}
+
+function closeAutoModal() {
+    document.getElementById("autoModal").style.display = "none";
+}
+
 /* Resume Modal */
 function openResumeModal() {
     document.getElementById("resumeModal").style.display = "block";
@@ -505,14 +570,17 @@ function closeResumeModal() {
 
 window.addEventListener("click", (event) => {
     const modal = document.getElementById("projectModal");
+    const autoModal = document.getElementById("autoModal");
     const resumeModal = document.getElementById("resumeModal");
     if (event.target === modal) modal.style.display = "none";
+    if (event.target === autoModal) autoModal.style.display = "none";
     if (event.target === resumeModal) resumeModal.style.display = "none";
 });
 
 window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
         closeModal();
+        closeAutoModal();
         closeResumeModal();
     }
 });

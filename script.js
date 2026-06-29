@@ -65,6 +65,76 @@ function typeRoles() {
 
 typeRoles();
 
+/* ===================== CODE TERMINAL TYPING EFFECT (SQL / DAX / Excel) ===================== */
+const codeSnippets = [
+    {
+        file: "query.sql",
+        code: "SELECT region, SUM(revenue) AS total_revenue\nFROM sales_data\nWHERE quarter = 'Q4'\nGROUP BY region\nORDER BY total_revenue DESC;"
+    },
+    {
+        file: "query.sql",
+        code: "SELECT product, AVG(efficiency) AS avg_efficiency\nFROM lpg_furnace_logs\nWHERE month = CURRENT_MONTH\nGROUP BY product\nORDER BY avg_efficiency DESC;"
+    },
+    {
+        file: "measures.dax",
+        code: "Total Revenue YTD =\nCALCULATE(\n    SUM(Sales[Revenue]),\n    DATESYTD('Date'[Date])\n)"
+    },
+    {
+        file: "measures.dax",
+        code: "Order Aging Risk % =\nDIVIDE(\n    CALCULATE(COUNTROWS(Orders), Orders[AgingDays] > 7),\n    COUNTROWS(Orders)\n)"
+    },
+    {
+        file: "report.xlsx",
+        code: "=SUMIFS(Sales[Revenue],\n  Sales[Region], \"East\",\n  Sales[Quarter], \"Q4\")\n' Power Query refresh: weekly\n' Linked to Power BI dataset"
+    },
+    {
+        file: "report.xlsx",
+        code: "=IFERROR(\n  VLOOKUP(A2, OrdersTable, 5, FALSE),\n  \"Not Found\")\n' VBA macro auto-splits by region\n' Runs on workbook open"
+    }
+];
+
+const sqlTyperEl = document.getElementById("sqlTyper");
+const sqlTerminalLabelEl = document.getElementById("sqlTerminalLabel");
+
+if (sqlTyperEl) {
+    let sqlQueryIndex = 0;
+    let sqlCharIndex = 0;
+    let sqlTypingForward = true;
+
+    function typeSql() {
+        const current = codeSnippets[sqlQueryIndex].code;
+
+        if (sqlTypingForward) {
+            sqlCharIndex++;
+            sqlTyperEl.textContent = current.slice(0, sqlCharIndex);
+            if (sqlCharIndex === current.length) {
+                sqlTypingForward = false;
+                setTimeout(typeSql, 2400);
+                return;
+            }
+            setTimeout(typeSql, 28);
+        } else {
+            sqlCharIndex -= 3;
+            if (sqlCharIndex <= 0) {
+                sqlCharIndex = 0;
+                sqlTyperEl.textContent = "";
+                sqlTypingForward = true;
+                sqlQueryIndex = (sqlQueryIndex + 1) % codeSnippets.length;
+                if (sqlTerminalLabelEl) {
+                    sqlTerminalLabelEl.textContent = codeSnippets[sqlQueryIndex].file;
+                }
+                setTimeout(typeSql, 500);
+                return;
+            }
+            sqlTyperEl.textContent = current.slice(0, sqlCharIndex);
+            setTimeout(typeSql, 8);
+        }
+    }
+
+    typeSql();
+}
+
+
 /* ===================== COUNTER ANIMATION ===================== */
 const counters = document.querySelectorAll(".counter");
 let counterStarted = false;
@@ -253,6 +323,8 @@ drawRadarChart();
 
     let particles = [];
     let mouse = { x: null, y: null };
+    let targetParallax = { x: 0, y: 0 };
+    let parallax = { x: 0, y: 0 };
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function resize() {
@@ -262,68 +334,79 @@ drawRadarChart();
     resize();
     window.addEventListener("resize", resize);
 
-    const COUNT = window.innerWidth < 700 ? 35 : 70;
+    const COUNT = window.innerWidth < 700 ? 45 : 90;
 
     function createParticles() {
         particles = [];
         for (let i = 0; i < COUNT; i++) {
+            // depth: 0 = far away (small, dim, slow), 1 = close (big, bright, fast)
+            const depth = Math.random();
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.25,
-                vy: (Math.random() - 0.5) * 0.25,
-                r: Math.random() * 1.6 + 0.6,
+                depth: depth,
+                vx: (Math.random() - 0.5) * (0.08 + depth * 0.35),
+                vy: (Math.random() - 0.5) * (0.08 + depth * 0.35),
+                r: 0.5 + depth * 2.2,
+                baseOpacity: 0.15 + depth * 0.55,
                 hue: Math.random() > 0.5 ? "0,217,255" : "124,58,237"
             });
         }
+        // closer particles drawn last so they render on top
+        particles.sort((a, b) => a.depth - b.depth);
     }
     createParticles();
 
     window.addEventListener("mousemove", (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+        // normalized -1 to 1 from center, drives parallax
+        targetParallax.x = (e.clientX / window.innerWidth - 0.5) * 2;
+        targetParallax.y = (e.clientY / window.innerHeight - 0.5) * 2;
     });
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // ease parallax toward target for smooth motion
+        parallax.x += (targetParallax.x - parallax.x) * 0.04;
+        parallax.y += (targetParallax.y - parallax.y) * 0.04;
+
         particles.forEach(p => {
             p.x += p.vx;
             p.y += p.vy;
 
-            if (p.x < 0) p.x = canvas.width;
-            if (p.x > canvas.width) p.x = 0;
-            if (p.y < 0) p.y = canvas.height;
-            if (p.y > canvas.height) p.y = 0;
+            if (p.x < -20) p.x = canvas.width + 20;
+            if (p.x > canvas.width + 20) p.x = -20;
+            if (p.y < -20) p.y = canvas.height + 20;
+            if (p.y > canvas.height + 20) p.y = -20;
 
-            // mouse-reactive subtle attraction
-            if (mouse.x !== null) {
-                const dx = mouse.x - p.x;
-                const dy = mouse.y - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 160) {
-                    p.x += dx * 0.0025;
-                    p.y += dy * 0.0025;
-                }
-            }
+            // depth-based parallax: closer particles shift more with mouse movement
+            const parallaxStrength = p.depth * 18;
+            const drawX = p.x + parallax.x * parallaxStrength;
+            const drawY = p.y + parallax.y * parallaxStrength;
 
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${p.hue},0.5)`;
+            ctx.arc(drawX, drawY, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.hue},${p.baseOpacity})`;
             ctx.fill();
+
+            p._drawX = drawX;
+            p._drawY = drawY;
         });
 
-        // connecting lines for nearby particles (subtle "neural network" feel)
+        // connecting lines only between similarly-close particles (foreground network)
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const a = particles[i], b = particles[j];
-                const dx = a.x - b.x, dy = a.y - b.y;
+                if (a.depth < 0.5 || b.depth < 0.5) continue;
+                const dx = a._drawX - b._drawX, dy = a._drawY - b._drawY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 110) {
+                if (dist < 120) {
                     ctx.beginPath();
-                    ctx.moveTo(a.x, a.y);
-                    ctx.lineTo(b.x, b.y);
-                    ctx.strokeStyle = `rgba(0,217,255,${0.06 * (1 - dist / 110)})`;
+                    ctx.moveTo(a._drawX, a._drawY);
+                    ctx.lineTo(b._drawX, b._drawY);
+                    ctx.strokeStyle = `rgba(0,217,255,${0.08 * (1 - dist / 120) * Math.min(a.depth, b.depth)})`;
                     ctx.lineWidth = 1;
                     ctx.stroke();
                 }

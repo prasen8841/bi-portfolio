@@ -84,21 +84,35 @@ button{
     height:100%;
 }
 
-.bg-grid{
+.bg-3d-scene{
     position:absolute;
-    inset:-2px;
-    background-image:
-        linear-gradient(rgba(0,217,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,217,255,0.05) 1px, transparent 1px);
-    background-size:56px 56px;
-    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 75%);
-    mask-image:radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 75%);
-    animation:gridDrift 40s linear infinite;
+    inset:0;
+    perspective:500px;
+    perspective-origin:50% 30%;
+    overflow:hidden;
+    -webkit-mask-image:radial-gradient(ellipse 85% 65% at 50% 25%, black 0%, transparent 78%);
+    mask-image:radial-gradient(ellipse 85% 65% at 50% 25%, black 0%, transparent 78%);
 }
 
-@keyframes gridDrift{
+.bg-3d-grid{
+    position:absolute;
+    left:50%;
+    top:40%;
+    width:2400px;
+    height:2400px;
+    margin-left:-1200px;
+    background-image:
+        linear-gradient(rgba(0,217,255,0.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,217,255,0.16) 1px, transparent 1px);
+    background-size:60px 60px;
+    transform:rotateX(78deg);
+    transform-style:preserve-3d;
+    animation:gridFloorMove 14s linear infinite;
+}
+
+@keyframes gridFloorMove{
     0%{background-position:0 0;}
-    100%{background-position:56px 112px;}
+    100%{background-position:0 60px;}
 }
 
 .bg-glow{
@@ -321,9 +335,9 @@ button{
 
 /* ===================== HERO ===================== */
 .hero{
-    min-height:92vh;
+    min-height:calc(100vh - 74px);
     display:flex;
-    align-items:center;
+    align-items:stretch;
     padding:40px 60px;
     position:relative;
 }
@@ -331,11 +345,11 @@ button{
 .hero-inner{
     display:flex;
     justify-content:space-between;
-    align-items:center;
+    align-items:stretch;
     gap:60px;
     width:100%;
     max-width:1320px;
-    margin:0 auto;
+    margin:-65px auto 0;
 }
 
 .hero-left{width:54%;}
@@ -469,6 +483,7 @@ button{
     width:42%;
     display:flex;
     justify-content:center;
+    align-items:center;
 }
 
 .hero-photo-wrap{
@@ -484,6 +499,7 @@ button{
     border-radius:50%;
     border:1px dashed rgba(0,217,255,0.3);
     animation:spinSlow 30s linear infinite;
+    z-index:1;
 }
 
 @keyframes spinSlow{
@@ -491,6 +507,8 @@ button{
 }
 
 .hero-photo{
+    position:relative;
+    z-index:2;
     width:100%;
     height:100%;
     object-fit:cover;
@@ -506,6 +524,7 @@ button{
 
 .kpi-float{
     position:absolute;
+    z-index:3;
     background:rgba(17,24,39,0.9);
     border:1px solid var(--border-accent);
     backdrop-filter:blur(10px);
@@ -532,6 +551,53 @@ button{
 
 .kpi-float-1{top:0;left:-50px;animation-delay:0s;}
 .kpi-float-2{bottom:10px;right:-40px;animation-delay:1.2s;}
+
+/* ===================== SQL TERMINAL (hero) ===================== */
+.sql-terminal{
+    background:rgba(17,24,39,0.85);
+    border:1px solid var(--border-soft);
+    border-radius:14px;
+    overflow:hidden;
+    max-width:520px;
+    margin-bottom:28px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+}
+
+.sql-terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:rgba(255,255,255,0.03);
+    border-bottom:1px solid var(--border-soft);
+}
+
+.sql-terminal-label{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-left:6px;
+}
+
+.sql-terminal-body{
+    font-family:var(--font-mono);
+    font-size:13.5px;
+    line-height:1.7;
+    padding:16px 18px;
+    margin:0;
+    color:#7DD3FC;
+    height:152px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    text-align:left;
+    overflow:hidden;
+}
+
+.sql-cursor{
+    color:var(--blue);
+    animation:blink 1s step-start infinite;
+}
+
 
 @keyframes floatY{
     0%,100%{transform:translateY(0);}
@@ -1314,24 +1380,30 @@ footer{
 .footer-socials a:hover{color:var(--blue);}
 
 .back-to-top{
-    position:absolute;
-    right:60px;
-    bottom:40px;
-    width:42px;height:42px;
-    border-radius:50%;
-    background:var(--bg-elevated);
-    border:1px solid var(--border-accent);
-    color:var(--blue);
-    font-size:18px;
+    position:fixed;
+    right:28px;
+    bottom:102px;
+    width:46px;height:46px;
+    border-radius:14px;
+    background:rgba(0,217,255,0.12);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(0,217,255,0.45);
     display:flex;
     align-items:center;
     justify-content:center;
-    transition:transform .3s ease, box-shadow .3s ease;
+    z-index:4100;
+    box-shadow:0 0 12px rgba(0,217,255,0.2), 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+    transition:transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease;
+    cursor:pointer;
 }
 
+
 .back-to-top:hover{
-    transform:translateY(-4px);
-    box-shadow:0 10px 25px rgba(0,217,255,0.2);
+    transform:translateY(-5px);
+    background:rgba(0,217,255,0.2);
+    border-color:rgba(0,217,255,0.7);
+    box-shadow:0 0 20px rgba(0,217,255,0.4), 0 10px 28px rgba(0,217,255,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 /* ===================== AI CHATBOT ===================== */
@@ -1633,7 +1705,7 @@ footer{
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width:1100px){
-    .hero-inner{flex-direction:column-reverse;text-align:center;gap:50px;}
+    .hero-inner{flex-direction:column-reverse;text-align:center;gap:50px;margin:0 auto;}
     .hero-left{width:100%;}
     .hero-right{width:100%;}
     .description{margin-left:auto;margin-right:auto;}
@@ -1668,6 +1740,19 @@ footer{
     .kpi-float-2{
         bottom:-30px;
         right:-12px;
+    }
+
+    .sql-terminal{
+        max-width:100%;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:left;
+    }
+
+    .sql-terminal-body{
+        font-size:12px;
+        padding:14px 16px;
+        height:136px;
     }
 }
 
@@ -1731,17 +1816,3 @@ footer{
     .meter-row{grid-template-columns:100px 1fr 40px;gap:10px;}
 
     .resume-box,.cta-box{padding:36px 22px;}
-    .cta-points{flex-direction:column;gap:14px;align-items:center;}
-
-    button{width:100%;}
-    .hero-buttons,.resume-buttons,.cta-buttons{flex-direction:column;}
-
-    .modal-grid{grid-template-columns:1fr;}
-    .modal-content{padding:24px;width:92%;}
-
-    .chat-window{width:88vw;right:-6px;}
-    .chatbot-container{right:16px;bottom:16px;}
-
-    .back-to-top{right:20px;bottom:20px;}
-    footer{padding:40px 20px 30px;}
-}

@@ -47,7 +47,9 @@
 <!-- Ambient background layers -->
 <div class="bg-layer">
     <canvas id="bgCanvas"></canvas>
-    <div class="bg-grid"></div>
+    <div class="bg-3d-scene">
+        <div class="bg-3d-grid"></div>
+    </div>
     <div class="bg-glow bg-glow-blue"></div>
     <div class="bg-glow bg-glow-purple"></div>
 </div>
@@ -96,6 +98,14 @@
                 I help organizations unlock actionable insights through dashboards,
                 analytics automation, and executive reporting — built on Power BI, SQL, and DAX.
             </p>
+
+            <div class="sql-terminal">
+                <div class="sql-terminal-bar">
+                    <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+                    <span class="sql-terminal-label" id="sqlTerminalLabel">query.sql</span>
+                </div>
+                <pre class="sql-terminal-body"><code id="sqlTyper"></code><span class="sql-cursor">|</span></pre>
+            </div>
 
             <div class="availability">
                 <span class="pulse-dot"></span> Available for BI / Analytics opportunities
@@ -588,7 +598,11 @@
             <a href="mailto:prasenjit8841@gmail.com">Email</a>
         </div>
     </div>
-    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="display:block;flex-shrink:0;overflow:visible;">
+            <path d="M4 15 L11 7 L18 15" stroke="#00D9FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+    </button>
 </footer>
 
 <!-- AI Chatbot -->
@@ -710,16 +724,4 @@
                 <p id="autoModalHow"></p>
             </div>
             <div class="case-section">
-                <h3>🧰 Stack</h3>
-                <p id="autoModalStack"></p>
-            </div>
-            <div class="case-section">
-                <h3>🚀 Impact</h3>
-                <p id="autoModalImpact"></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>
+           

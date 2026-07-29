@@ -618,6 +618,17 @@ const automationData = {
         how: "The user's question and the relevant database schema are sent to the OpenAI API, which generates the SQL query. The tool then runs that query directly against the database and returns the live result set back to the user.",
         stack: "Python, OpenAI API, SQL (live execution)",
         impact: "Lets non-technical stakeholders get direct answers from the database in plain English, without waiting on a manual query request."
+    },
+    excelTool: {
+        title: "Excel Automation Tool",
+        lang: "Python",
+        tag: "Desktop App \u00b7 Live Web Demo",
+        demo: "https://excel-automation-tool-5saarahzuscxlmz6spdeb9.streamlit.app/",
+        overview: "A full desktop application (with a live web demo) that automates six spreadsheet jobs \u2014 splitting a sheet by one or two columns or by positive/negative value, breaking a workbook into its sheets, and merging many workbooks into one. It reads and writes real .xlsx files directly, so Excel doesn't need to be installed.",
+        problem: "Splitting a large report into many files (one per region, client, department) or merging a folder of workbooks into one is slow, repetitive, and easy to get subtly wrong by hand \u2014 and my earlier VBA macros could only run inside Excel.",
+        how: "The core logic is written in Python with openpyxl and kept completely separate from the interface, so the same engine powers a Tkinter desktop app, a Streamlit web demo, and an automated test suite. Long jobs run on a background thread with a live progress bar and cancel support; every output is auto-formatted with headers, borders, dd-mm-yyyy dates, and optional subtotals.",
+        stack: "Python, openpyxl, Tkinter (desktop GUI), Streamlit (web demo), PyInstaller (.exe), automated tests",
+        impact: "Turned a recurring manual splitting/merging task into a few seconds of clicking \u2014 packaged as a one-file Windows .exe colleagues run without installing anything, plus a public web demo anyone can try instantly with bundled sample data."
     }
 };
 
@@ -634,6 +645,25 @@ function openAutoModal(toolKey) {
     document.getElementById("autoModalHow").innerText = d.how;
     document.getElementById("autoModalStack").innerText = d.stack;
     document.getElementById("autoModalImpact").innerText = d.impact;
+
+    // Live-demo button: shown only for tools that carry a `demo` URL.
+    // Created on first use and reused thereafter, so no HTML edit is needed.
+    let demoBtn = document.getElementById("autoModalDemoBtn");
+    if (!demoBtn) {
+        demoBtn = document.createElement("a");
+        demoBtn.id = "autoModalDemoBtn";
+        demoBtn.className = "auto-demo-btn";
+        demoBtn.target = "_blank";
+        demoBtn.rel = "noopener";
+        document.getElementById("autoModalTitle").insertAdjacentElement("afterend", demoBtn);
+    }
+    if (d.demo) {
+        demoBtn.href = d.demo;
+        demoBtn.innerText = "\u25B6 Try Live Demo";
+        demoBtn.style.display = "inline-flex";
+    } else {
+        demoBtn.style.display = "none";
+    }
 
     modal.style.display = "block";
 }
